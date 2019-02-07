@@ -1,0 +1,105 @@
+﻿@model CiaTecnica_MVC.Models.PessoaJuridica
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+<div class="row">
+
+	<!-- PESSOA JURIDICA -->
+	<div class="col-md-12" id="PessoaFisicaGrid">
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">Pessoa Física</h3>
+			</div>
+
+			<div class="col-md-12 column">
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+				@Html.HiddenFor(model => model.ID)
+	
+				<div class="box-body">
+					<div class="form-group">
+						@Html.LabelFor(m => m.CNPJ, new { @class = "col-sm-3 control-label" })
+						<div class="col-sm-9">
+							@Html.TextBoxFor(m => m.CNPJ, new { @class = "form-control" })
+							@Html.ValidationMessageFor(model => model.CNPJ, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>
+
+				<div class="box-body">
+					<div class="form-group">
+						@Html.LabelFor(m => m.RazaoSocial, new { @class = "col-sm-3 control-label" })
+						<div class="col-sm-9">
+							@Html.TextBoxFor(m => m.RazaoSocial, new { @class = "form-control" })
+							@Html.ValidationMessageFor(model => model.RazaoSocial, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>
+
+				<div class="box-body">
+					<div class="form-group">
+						@Html.LabelFor(m => m.NomeFantasia, new { @class = "col-sm-3 control-label" })
+						<div class="col-sm-9">
+							@Html.TextBoxFor(m => m.NomeFantasia, new { @class = "form-control" })
+							@Html.ValidationMessageFor(model => model.NomeFantasia, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>
+
+				<!-- ENDERECO -->
+				<div class="box-body">
+					<div class="form-group">
+						@Html.LabelFor(m => m.endereco.Logradouro, new { @class = "col-sm-3 control-label" })
+						<div class="col-sm-9">
+							@Html.TextBoxFor(m => m.endereco.Logradouro, new { @class = "form-control" })
+							@Html.ValidationMessageFor(m => m.endereco.Logradouro, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>
+
+				<div class="box-body">
+					<div class="form-group">
+						@Html.LabelFor(m => m.endereco.Numero, new { @class = "col-sm-3 control-label" })
+						<div class="col-sm-9">
+							@Html.TextBoxFor(m => m.endereco.Numero, new { @class = "form-control" })
+							@Html.ValidationMessageFor(m => m.endereco.Numero, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>
+
+				<div class="box-body">
+					<div class="form-group">
+						@Html.LabelFor(m => m.endereco.UFCompleto, new { @class = "col-sm-3 control-label" })
+						<div class="col-sm-9">
+							@Html.TextBoxFor(m => m.endereco.UFCompleto, new { @class = "form-control" })
+							@Html.ValidationMessageFor(m => m.endereco.UFCompleto, "", new { @class = "text-danger" })
+						</div>
+					</div>
+				</div>
+				<!-- /ENDERECO -->
+				
+				<div class="box-footer">
+					<input type="submit" value="Salvar" class="btn btn-default" />
+
+				</div>
+				@Html.ValidationSummary("", new { @class = "text-danger" })
+	
+	
+}
+			</div>
+		</div>
+	</div>
+</div>
+<div>
+    @Html.ActionLink("Voltar", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
