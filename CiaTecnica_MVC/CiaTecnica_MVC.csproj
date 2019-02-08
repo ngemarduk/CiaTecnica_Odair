@@ -345,6 +345,14 @@
     <Content Include="Scripts\PessoaJuridica.js" />
     <Content Include="Scripts\tether.js" />
     <Content Include="Scripts\tether.min.js" />
+    <Content Include="SQL\PROC-PESSOA_FISICA_ALTERA.sql" />
+    <Content Include="SQL\PROC-PESSOA_FISICA_CADASTRA.sql" />
+    <Content Include="SQL\PROC-PESSOA_FISICA_DADOS.sql" />
+    <Content Include="SQL\PROC-PESSOA_FISICA_LISTA.sql" />
+    <Content Include="SQL\PROC-PESSOA_JURIDICA_ALTERA.sql" />
+    <Content Include="SQL\PROC-PESSOA_JURIDICA_CADASTRA.sql" />
+    <Content Include="SQL\PROC-PESSOA_JURIDICA_DADOS.sql" />
+    <Content Include="SQL\PROC-PESSOA_JURIDICA_LISTA.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
