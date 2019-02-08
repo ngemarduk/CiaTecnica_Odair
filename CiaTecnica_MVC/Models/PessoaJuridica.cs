@@ -28,6 +28,6 @@ namespace CiaTecnica_MVC.Models
         [StringLength(8, ErrorMessage = "Digite o sobrenome com menos de 15 caracteres.")]
         public string CEP { get; set; }
 
-        public Endereco endereco { get; set; }
+        public virtual Endereco endereco { get; set; }
     }
 }

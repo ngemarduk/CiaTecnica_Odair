@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CiaTecnica_MVC.Models.PessoaJuridica>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista - Pessoa Jurídica";
 }
 
 @if (Model != null)
@@ -39,9 +39,9 @@
                     @Html.DisplayFor(modelItem => item.CEP)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Dados", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Apagar", "Delete", new { id = item.ID, onclick = "return confirm('Deseja apagar este cliente?');" })
                 </td>
             </tr>
         }

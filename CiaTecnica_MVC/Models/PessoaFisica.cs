@@ -6,11 +6,11 @@ namespace CiaTecnica_MVC.Models
 {
     public class PessoaFisica
     {
-        public int ID;
+        public int ID { get; set; }
 
         [Required(ErrorMessage = "Digite o C.P.F.!")]
         [Display(Name = "CPF")]
-        [DisplayFormat(DataFormatString = "{0:###.###-####-##}")]
+        [DisplayFormat(DataFormatString = "{0:###.###.####-##}")]
         public string CPF { get; set; }
 
         [Required(ErrorMessage = "Digite a data de nascimento!")]
@@ -35,7 +35,7 @@ namespace CiaTecnica_MVC.Models
         [StringLength(8, ErrorMessage = "Digite o sobrenome com menos de 15 caracteres.")]
         public string CEP { get; set; }
 
-        public Endereco endereco;
+        public virtual Endereco endereco { get; set; }
 
     }
 }

@@ -8,6 +8,8 @@ namespace CiaTecnica_MVC.Models
 {
     public class Endereco
     {
+        public int IDEndereco { get; set; }
+
         [Required(ErrorMessage = "Digite o logradouro!")]
         [Display(Name = "Logradouro")]
         [StringLength(250, ErrorMessage = "Digite o logradouro com menos de 250 caracteres.")]

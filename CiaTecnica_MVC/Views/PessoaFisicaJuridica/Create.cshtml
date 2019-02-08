@@ -5,268 +5,254 @@
 }
 
 <div class="row">
+    <div class="col-md-6" id="PessoaSelecao">
+        <div class="box box-primary">
 
-    <div class="col-md-12" id="PessoaSelecao">
-        <div class="box-body">
-            <div class="form-group">
-                Selecione o tipo de cadastro
-                <div class="col-sm-9">
-                    <select id="formopcao" name="formopcao" onchange="FormSeleciona()">
-                        <option value="0" selected>-SELECIONE-</option>
-                        <option value="1">Física</option>
-                        <option value="2">Jurídica</option>
-                    </select>
+            <form class="form-horizontal" role="form">
+                <div class="box-body">
+                    <div class="form-group">
+                        <label  class="col-sm-4 control-label">Selecione o tipo de cadastro</label>
+                        <div class="col-sm-4">
+                            <select id="formopcao" name="formopcao"  class="form-control" onchange="FormSeleciona()">
+                                <option value="0" selected>-SELECIONE-</option>
+                                <option value="1">Física</option>
+                                <option value="2">Jurídica</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </form>
+
         </div>
     </div>
+</div>
 
-    <!-- PESSOA FISICA -->
-    <div class="col-md-12" id="PessoaFisicaGrid">
+<!-- PESSOA FISICA -->
+<div class="row">
+
+    <div class="col-md-4" id="PessoaFisicaGrid">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Pessoa Física - Cadastro</h3>
             </div>
 
-            <div class="col-md-12 column">
 
-                @using (Html.BeginForm("Create", "PessoaFisica", FormMethod.Post, new { id = "frmPF" }))
-                {
-                    @Html.AntiForgeryToken()
+@using (Html.BeginForm("Create", "PessoaFisica", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "frmPF" }))
+{
+    @Html.AntiForgeryToken()
 
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.pessoaFisica.CPF, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.pessoaFisica.CPF, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.pessoaFisica.CPF, "", new { @class = "text-danger" })
-                        </div>
+    
+
+            <div class="box-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.pessoaFisica.CPF, htmlAttributes: new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.EditorFor(model => model.pessoaFisica.CPF, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.pessoaFisica.CPF, "", new { @class = "text-danger" })
                     </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.pessoaFisica.DataNasc, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.pessoaFisica.DataNasc, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.pessoaFisica.DataNasc, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.pessoaFisica.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.pessoaFisica.Nome, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.pessoaFisica.Nome, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.pessoaFisica.Sobrenome, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.pessoaFisica.Sobrenome, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.pessoaFisica.Sobrenome, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.pessoaFisica.CEP, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.pessoaFisica.CEP, new { htmlAttributes = new { @class = "form-control", @onblur = "pesquisaCep()" } })
-                            @Html.ValidationMessageFor(model => model.pessoaFisica.CEP, "", new { @class = "text-danger"})
-                        </div>
-                    </div>
-
-                    <!-- ENDERECO -->
-                    <div class="box-body">
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.pessoaFisica.endereco.Logradouro, new { @class = "col-sm-3 control-label" })
-                            <div class="col-sm-9">
-                                @Html.TextBoxFor(m => m.pessoaFisica.endereco.Logradouro, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.pessoaFisica.endereco.Logradouro, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="box-body">
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.pessoaFisica.endereco.Complemento, new { @class = "col-sm-3 control-label" })
-                            <div class="col-sm-9">
-                                @Html.TextBoxFor(m => m.pessoaFisica.endereco.Complemento, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.pessoaFisica.endereco.Complemento, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="box-body">
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.pessoaFisica.endereco.Numero, new { @class = "col-sm-3 control-label" })
-                            <div class="col-sm-9">
-                                @Html.TextBoxFor(m => m.pessoaFisica.endereco.Numero, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.pessoaFisica.endereco.Numero, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="box-body">
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.pessoaFisica.endereco.Cidade, new { @class = "col-sm-3 control-label" })
-                            <div class="col-sm-9">
-                                @Html.TextBoxFor(m => m.pessoaFisica.endereco.Cidade, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.pessoaFisica.endereco.Cidade, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="box-body">
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.pessoaFisica.endereco.Bairro, new { @class = "col-sm-3 control-label" })
-                            <div class="col-sm-9">
-                                @Html.TextBoxFor(m => m.pessoaFisica.endereco.Bairro, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.pessoaFisica.endereco.Bairro, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="box-body">
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.pessoaFisica.endereco.UFCompleto, new { @class = "col-sm-3 control-label" })
-                            <div class="col-sm-9">
-                                @Html.TextBoxFor(m => m.pessoaFisica.endereco.UFCompleto, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(m => m.pessoaFisica.endereco.UFCompleto, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /ENDERECO -->
-
-                    <div class="box-footer">
-                        <input type="submit" value="Salvar" class="btn btn-default" />
-                    </div>
-
-                    @Html.ValidationSummary("", new { @class = "text-danger" })
-                }
-            </div>
-            </div>
-        </div>
-    <!-- /PESSOA FISICA -->
-
-        <!-- PESSOA JURIDICA -->
-        <div class="col-md-12" id="PessoaJuridicaGrid">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Pessoa Jurídica - Cadastro</h3>
                 </div>
 
-                <div class="col-md-12 column">
-
-                    @using (Html.BeginForm("Create", "PessoaJuridica", FormMethod.Post, new { id = "frmPJ" }))
-                    {
-                        @Html.AntiForgeryToken()
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.pessoaJuridica.CNPJ, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.pessoaJuridica.CNPJ, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.pessoaJuridica.CNPJ, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.pessoaJuridica.RazaoSocial, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.pessoaJuridica.RazaoSocial, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.pessoaJuridica.RazaoSocial, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.pessoaJuridica.NomeFantasia, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.pessoaJuridica.NomeFantasia, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.pessoaJuridica.NomeFantasia, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.pessoaJuridica.CEP, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.pessoaJuridica.CEP, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.pessoaJuridica.CEP, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <!-- ENDERECO -->
-                        <div class="box-body">
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.pessoaJuridica.endereco.Logradouro, new { @class = "col-sm-3 control-label" })
-                                <div class="col-sm-9">
-                                    @Html.TextBoxFor(m => m.pessoaJuridica.endereco.Logradouro, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.pessoaJuridica.endereco.Logradouro, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="box-body">
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.pessoaJuridica.endereco.Complemento, new { @class = "col-sm-3 control-label" })
-                                <div class="col-sm-9">
-                                    @Html.TextBoxFor(m => m.pessoaJuridica.endereco.Complemento, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.pessoaJuridica.endereco.Complemento, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="box-body">
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.pessoaJuridica.endereco.Numero, new { @class = "col-sm-3 control-label" })
-                                <div class="col-sm-9">
-                                    @Html.TextBoxFor(m => m.pessoaJuridica.endereco.Numero, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.pessoaJuridica.endereco.Numero, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="box-body">
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.pessoaJuridica.endereco.Cidade, new { @class = "col-sm-3 control-label" })
-                                <div class="col-sm-9">
-                                    @Html.TextBoxFor(m => m.pessoaJuridica.endereco.Cidade, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.pessoaJuridica.endereco.Cidade, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="box-body">
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.pessoaJuridica.endereco.Bairro, new { @class = "col-sm-3 control-label" })
-                                <div class="col-sm-9">
-                                    @Html.TextBoxFor(m => m.pessoaJuridica.endereco.Bairro, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.pessoaJuridica.endereco.Bairro, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="box-body">
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.pessoaJuridica.endereco.UFCompleto, new { @class = "col-sm-3 control-label" })
-                                <div class="col-sm-9">
-                                    @Html.TextBoxFor(m => m.pessoaJuridica.endereco.UFCompleto, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.pessoaJuridica.endereco.UFCompleto, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /ENDERECO -->
-
-                        <div class="box-footer">
-                            <input type="submit" value="Salvar" class="btn btn-default" />
-                        </div>
-                        @Html.ValidationSummary("", new { @class = "text-danger" })
-                    }
+                <div class="form-group">
+                    @Html.LabelFor(model => model.pessoaFisica.DataNasc, htmlAttributes: new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.EditorFor(model => model.pessoaFisica.DataNasc, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.pessoaFisica.DataNasc, "", new { @class = "text-danger" })
+                    </div>
                 </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.pessoaFisica.Nome, htmlAttributes: new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.EditorFor(model => model.pessoaFisica.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.pessoaFisica.Nome, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.pessoaFisica.Sobrenome, htmlAttributes: new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.EditorFor(model => model.pessoaFisica.Sobrenome, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.pessoaFisica.Sobrenome, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.pessoaFisica.CEP, htmlAttributes: new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.EditorFor(model => model.pessoaFisica.CEP, new { htmlAttributes = new { @class = "form-control", @onblur = "PesquisaCEP(1)" } })
+                        @Html.ValidationMessageFor(model => model.pessoaFisica.CEP, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- ENDERECO -->
+                <div class="form-group">
+                    @Html.LabelFor(m => m.pessoaFisica.endereco.Logradouro, new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(m => m.pessoaFisica.endereco.Logradouro, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.pessoaFisica.endereco.Logradouro, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.pessoaFisica.endereco.Complemento, new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(m => m.pessoaFisica.endereco.Complemento, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.pessoaFisica.endereco.Complemento, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.pessoaFisica.endereco.Numero, new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(m => m.pessoaFisica.endereco.Numero, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.pessoaFisica.endereco.Numero, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.pessoaFisica.endereco.Bairro, new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(m => m.pessoaFisica.endereco.Bairro, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.pessoaFisica.endereco.Bairro, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.pessoaFisica.endereco.Cidade, new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(m => m.pessoaFisica.endereco.Cidade, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.pessoaFisica.endereco.Cidade, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.pessoaFisica.endereco.UFCompleto, new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(m => m.pessoaFisica.endereco.UFCompleto, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.pessoaFisica.endereco.UFCompleto, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <!-- /ENDERECO -->
+
+                <div class="box-footer">
+                    <input type="submit" value="Salvar" class="btn btn-default" />
+                </div>
+
+                @Html.ValidationSummary("", new { @class = "text-danger" })
             </div>
+}
+            
         </div>
-        <!-- /PESSOA JURIDICA -->
+    </div>
+</div>
+<!-- /PESSOA FISICA -->
 
+<!-- PESSOA JURIDICA -->
+<div class="row">
+    <div class="col-md-4" id="PessoaJuridicaGrid">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Pessoa Jurídica - Cadastro</h3>
+            </div>
 
+@using (Html.BeginForm("Create", "PessoaJuridica", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "frmPJ" }))
+{
+    @Html.AntiForgeryToken()
+
+            <div class="box-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.pessoaJuridica.CNPJ, htmlAttributes: new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.EditorFor(model => model.pessoaJuridica.CNPJ, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.pessoaJuridica.CNPJ, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.pessoaJuridica.RazaoSocial, htmlAttributes: new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.EditorFor(model => model.pessoaJuridica.RazaoSocial, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.pessoaJuridica.RazaoSocial, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.pessoaJuridica.NomeFantasia, htmlAttributes: new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.EditorFor(model => model.pessoaJuridica.NomeFantasia, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.pessoaJuridica.NomeFantasia, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.pessoaJuridica.CEP, htmlAttributes: new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.EditorFor(model => model.pessoaJuridica.CEP, new { htmlAttributes = new { @class = "form-control", @onblur = "PesquisaCEP(2)" } })
+                        @Html.ValidationMessageFor(model => model.pessoaJuridica.CEP, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <!-- ENDERECO -->
+                <div class="form-group">
+                    @Html.LabelFor(m => m.pessoaJuridica.endereco.Logradouro, new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(m => m.pessoaJuridica.endereco.Logradouro, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.pessoaJuridica.endereco.Logradouro, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.pessoaJuridica.endereco.Complemento, new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(m => m.pessoaJuridica.endereco.Complemento, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.pessoaJuridica.endereco.Complemento, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.pessoaJuridica.endereco.Numero, new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(m => m.pessoaJuridica.endereco.Numero, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.pessoaJuridica.endereco.Numero, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.pessoaJuridica.endereco.Bairro, new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(m => m.pessoaJuridica.endereco.Bairro, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.pessoaJuridica.endereco.Bairro, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.pessoaJuridica.endereco.Cidade, new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(m => m.pessoaJuridica.endereco.Cidade, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.pessoaJuridica.endereco.Cidade, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.pessoaJuridica.endereco.UFCompleto, new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-8">
+                        @Html.TextBoxFor(m => m.pessoaJuridica.endereco.UFCompleto, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.pessoaJuridica.endereco.UFCompleto, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <!-- /ENDERECO -->
+
+                <div class="box-footer">
+                    <input type="submit" value="Salvar" class="btn btn-default" />
+                </div>
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+            </div>
+}
         </div>
+    </div>
+</div>
+<!-- /PESSOA JURIDICA -->
+
 
 <div>
     @Html.ActionLink("Voltar", "Index")
@@ -279,11 +265,10 @@
 <script src="~/Scripts/PessoaFisicaJuridica.js"></script>
 
 <script type="text/javascript">
-    
-    $(document).ready(function ()
-    {
+
+    $(document).ready(function () {
         configurarControles();
-    });    
+    });
 </script>
 
 

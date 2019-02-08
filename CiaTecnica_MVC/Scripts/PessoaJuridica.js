@@ -7,9 +7,9 @@ function configurarControles() {
 function PesquisaCEP() {
 
     var cepVal;
-    
+
     cepVal = $("#CEP").val().replace(/\D/g, '');
-    
+
     //Expressão regular para validar o CEP.
     var validacep = /^[0-9]{8}$/;
 
@@ -20,11 +20,11 @@ function PesquisaCEP() {
         $.getJSON("https://viacep.com.br/ws/" + cepVal + "/json/?callback=?", function (dados) {
 
             if (!("erro" in dados)) {
-                
+
                 $("#endereco_Logradouro").val(dados.logradouro);
                 $("#endereco_Bairro").val(dados.bairro);
                 $("#endereco_Cidade").val(dados.localidade);
-               
+
             }
             else {
                 //CEP pesquisado não foi encontrado.

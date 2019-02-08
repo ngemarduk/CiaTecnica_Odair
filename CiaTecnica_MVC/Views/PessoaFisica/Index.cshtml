@@ -1,10 +1,9 @@
 ﻿@model IEnumerable<CiaTecnica_MVC.Models.PessoaFisica>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista - Pessoas físicas";
 }
 
-<h2>Index</h2>
 
 @if(Model != null)
 { 
@@ -46,9 +45,9 @@
             @Html.DisplayFor(modelItem => item.CEP)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Editar", "Edit", new {  id=item.ID }) |
+            @Html.ActionLink("Dados", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Apagar", "Delete", new {  id=item.ID, onclick = "return confirm('Deseja apagar este cliente?');" })
         </td>
     </tr>
     }

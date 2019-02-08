@@ -5,7 +5,9 @@ function configurarControles() {
 
     $("#pessoaFisica_CPF").inputmask("mask", { "mask": "999.999.999-99" }, { reverse: true });
     $("#pessoaJuridica_CNPJ").inputmask("mask", { "mask": "99.999.999/9999-99" }, { reverse: true });
-    
+
+    $("#pessoaFisica_CEP").inputmask("mask", { "mask": "99999999" }, { reverse: true });
+    $("#pessoaJuridica_CEP").inputmask("mask", { "mask": "99999999" }, { reverse: true });
 }
 
 function FormSeleciona()
@@ -21,20 +23,54 @@ function FormSeleciona()
     }
 }
 
+function PesquisaCEP(tipo) {
 
-function pesquisaCep() {
+    var cepVal;
 
-    var IdCEP = $("#pessoaFisica_CEP").val();
-    if (IdCEP.length == 8)
-        $.ajax({
-            type: "POST",
-            url: "https://viacep.com.br/ws/" + IdCEP + "/json/?callback=?",
-            success: retornaCep,
-            dataType: "json"
+    if (tipo == 1) {
+        cepVal = $("#pessoaFisica_CEP").val().replace(/\D/g, '');
+    } else {
+        cepVal = $("#pessoaJuridica_CEP").val().replace(/\D/g, '');
+    }
+    
+    //Expressão regular para validar o CEP.
+    var validacep = /^[0-9]{8}$/;
+
+    //Valida o formato do CEP.
+    if (validacep.test(cepVal)) {
+
+        //Consulta o webservice viacep.com.br/
+        $.getJSON("https://viacep.com.br/ws/" + cepVal + "/json/?callback=?", function (dados) {
+
+            if (!("erro" in dados)) {
+
+                if (tipo == 1)
+                {
+                    $("#pessoaFisica_endereco_Logradouro").val(dados.logradouro);
+                    $("#pessoaFisica_endereco_Bairro").val(dados.bairro);
+                    $("#pessoaFisica_endereco_Cidade").val(dados.localidade);
+                } else {
+                    $("#pessoaJuridica_endereco_Logradouro").val(dados.logradouro);
+                    $("#pessoaJuridica_endereco_Bairro").val(dados.bairro);
+                    $("#pessoaJuridica_endereco_Cidade").val(dados.localidade);
+                    $("#pessoaJuridica_endereco_UFSigla").val(dados.uf);
+                }
+
+                
+            }
+            else {
+                //CEP pesquisado não foi encontrado.
+                alert("CEP não encontrado.");
+            }
         });
+
+		
+    } else {
+        //cep é inválido.
+        alert("Formato de CEP inválido.");
+    }
 }
 
-//function retornaCep(tipoMovimentosLst)
 function retornaCep(dadosCEP) {
     
     console.log(dadosCEP);
